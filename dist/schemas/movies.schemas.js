@@ -7,3 +7,8 @@ export var movieSchema = joi.object({
     note: joi.number(),
     resume: joi.string()
 });
+export var movieUpdateSchema = joi.object({
+    watched: joi.boolean().required(),
+    note: joi.number(),
+    resume: joi.string()
+});

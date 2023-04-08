@@ -48,6 +48,16 @@ function getAll() {
         });
     });
 }
+function findBy(fieldName, fieldKey) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, db.query("\n        SELECT * FROM movies WHERE ".concat(fieldName, " = $1;\n    "), [fieldKey])];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
 function postMovie(movie) {
     return __awaiter(this, void 0, void 0, function () {
         var name, plataform, gender, watched, note, resume;
@@ -63,7 +73,37 @@ function postMovie(movie) {
         });
     });
 }
+function attMovie(movie, id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var watched, note, resume;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    watched = movie.watched, note = movie.note, resume = movie.resume;
+                    return [4 /*yield*/, db.query("\n        UPDATE movies SET watched = $1, note = $2, resume = $3 WHERE id = $4;\n    ", [watched, note, resume, id])];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function deleteMovie(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, db.query("\n        DELETE FROM movies WHERE id = $1;\n    ", [id])];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 export default {
     getAll: getAll,
-    postMovie: postMovie
+    postMovie: postMovie,
+    findBy: findBy,
+    attMovie: attMovie,
+    deleteMovie: deleteMovie
 };

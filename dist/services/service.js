@@ -35,13 +35,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import repository from "../repositories/movie.respository.js";
-function getAll() {
+function getAll(gender, plataform) {
     return __awaiter(this, void 0, void 0, function () {
-        var movies;
+        var rows, movies_1, rows, movies_2, movies;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, repository.getAll()];
+                case 0:
+                    if (!gender) return [3 /*break*/, 2];
+                    return [4 /*yield*/, repository.findBy("gender", gender)];
                 case 1:
+                    rows = (_a.sent()).rows;
+                    movies_1 = rows;
+                    return [2 /*return*/, movies_1];
+                case 2:
+                    if (!plataform) return [3 /*break*/, 4];
+                    return [4 /*yield*/, repository.findBy("plataform", plataform)];
+                case 3:
+                    rows = (_a.sent()).rows;
+                    movies_2 = rows;
+                    return [2 /*return*/, movies_2];
+                case 4: return [4 /*yield*/, repository.getAll()];
+                case 5:
                     movies = _a.sent();
                     return [2 /*return*/, movies];
             }
@@ -60,7 +74,33 @@ function postMovie(movie) {
         });
     });
 }
+function attMovie(movie, id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, repository.attMovie(movie, id)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function deleteMovie(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, repository.deleteMovie(id)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 export default {
     getAll: getAll,
-    postMovie: postMovie
+    postMovie: postMovie,
+    attMovie: attMovie,
+    deleteMovie: deleteMovie
 };

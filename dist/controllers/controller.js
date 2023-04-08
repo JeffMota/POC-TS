@@ -35,23 +35,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import services from "../services/service.js";
+import repository from "../repositories/movie.respository.js";
 function getAll(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var movies, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, gender, plataform, movies, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, services.getAll()];
+                    _a = req.query, gender = _a.gender, plataform = _a.plataform;
+                    _b.label = 1;
                 case 1:
-                    movies = _a.sent();
-                    res.send(movies);
-                    return [3 /*break*/, 3];
+                    _b.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, services.getAll(gender, plataform)];
                 case 2:
-                    error_1 = _a.sent();
+                    movies = _b.sent();
+                    res.send(movies);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _b.sent();
                     res.status(500).send(error_1.message);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -79,7 +83,54 @@ function postMovie(req, res) {
         });
     });
 }
+function attMovie(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var movie, id, rowCount, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    movie = req.body;
+                    id = Number(req.params.id);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, repository.findBy("id", id)];
+                case 2:
+                    rowCount = (_a.sent()).rowCount;
+                    if (!rowCount)
+                        return [2 /*return*/, res.sendStatus(404)];
+                    return [4 /*yield*/, services.attMovie(movie, id)];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/, res.sendStatus(200)];
+                case 4:
+                    error_3 = _a.sent();
+                    res.status(500).send(error_3.message);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
+function deleteMovie(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    id = Number(req.params.id);
+                    return [4 /*yield*/, services.deleteMovie(id)];
+                case 1:
+                    _a.sent();
+                    res.sendStatus(200);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 export default {
     getAll: getAll,
-    postMovie: postMovie
+    postMovie: postMovie,
+    attMovie: attMovie,
+    deleteMovie: deleteMovie
 };

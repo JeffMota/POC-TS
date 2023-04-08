@@ -48,9 +48,11 @@ async function attMovie(req: Request, res: Response){
 
 }
 
-async function deleteMovie(req: Request, res: Response):Promise<void>{
-
+async function deleteMovie(req: Request, res: Response){
     const id = Number(req.params.id)
+
+    const {rowCount} = await repository.findBy("id", id)
+    if(!rowCount) return res.sendStatus(404)
 
     await services.deleteMovie(id)
     res.sendStatus(200)
