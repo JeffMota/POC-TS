@@ -10,7 +10,6 @@ export const movieSchema = joi.object({
 })
 
 export const movieUpdateSchema = joi.object({
-    id:joi.number().required(),
     watched: joi.boolean().required(),
     note: joi.number(),
     resume: joi.string()

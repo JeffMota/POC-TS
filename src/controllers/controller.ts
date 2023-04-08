@@ -4,8 +4,10 @@ import services from "../services/service.js"
 import repository from "../repositories/movie.respository.js"
 
 async function getAll(req: Request, res: Response){
+    const {gender, plataform} = req.query
+    
     try {
-        const movies = await services.getAll()
+        const movies = await services.getAll(gender, plataform)
 
         res.send(movies)
         
@@ -29,13 +31,14 @@ async function postMovie(req: Request, res: Response){
 
 async function attMovie(req: Request, res: Response){
     const movie = req.body as updateMovie
+    const id = Number(req.params.id)
 
     try {
 
-        const {rowCount} = await repository.findById(movie.id)
+        const {rowCount} = await repository.findBy("id", id)
         if(!rowCount) return res.sendStatus(404)
 
-        await services.attMovie(movie)
+        await services.attMovie(movie, id)
 
         return res.sendStatus(200)
         
@@ -45,8 +48,17 @@ async function attMovie(req: Request, res: Response){
 
 }
 
+async function deleteMovie(req: Request, res: Response):Promise<void>{
+
+    const id = Number(req.params.id)
+
+    await services.deleteMovie(id)
+    res.sendStatus(200)
+}
+
 export default {
     getAll,
     postMovie,
-    attMovie
+    attMovie,
+    deleteMovie
 }

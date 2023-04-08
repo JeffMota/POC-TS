@@ -9,11 +9,11 @@ async function getAll():Promise<Movie[]>{
     return rows
 }
 
-async function findById(id:number): Promise<QueryResult<Movie>>{
-    return await db.query<Movie>(`
-        SELECT * FROM movies WHERE id = $1;
+async function findBy(fieldName:string, fieldKey:(string | number)){
+    return await db.query<Movie[]>(`
+        SELECT * FROM movies WHERE ${fieldName} = $1;
     `,
-        [id]
+        [fieldKey]
     )
 }
 
@@ -25,20 +25,28 @@ async function postMovie(movie: insertMovie): Promise<void>{
     `, [name, plataform, gender, watched, note, resume])
 }
 
-async function attMovie(movie:updateMovie): Promise<void>{
-    const {id, watched, note, resume} = movie
+async function attMovie(movie:updateMovie, id:number): Promise<void>{
+    const {watched, note, resume} = movie 
 
     await db.query(`
         UPDATE movies SET watched = $1, note = $2, resume = $3 WHERE id = $4;
     `,
         [watched, note, resume, id]
     )
+}
 
+async function deleteMovie(id: number):Promise<void>{
+    await db.query(`
+        DELETE FROM movies WHERE id = $1;
+    `,
+        [id]
+    )
 }
 
 export default{
     getAll,
     postMovie,
-    findById,
-    attMovie
+    findBy,
+    attMovie,
+    deleteMovie
 }
