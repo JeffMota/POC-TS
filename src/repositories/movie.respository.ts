@@ -10,11 +10,12 @@ async function getAll():Promise<Movie[]>{
 }
 
 async function findBy(fieldName:string, fieldKey:(string | number)){
-    return await db.query<Movie[]>(`
+    const result =  await db.query<Movie>(`
         SELECT * FROM movies WHERE ${fieldName} = $1;
     `,
         [fieldKey]
     )
+    return result
 }
 
 async function postMovie(movie: insertMovie): Promise<void>{

@@ -3,8 +3,10 @@ import { insertMovie, updateMovie } from "../protocols/movies.protocols.js";
 import services from "../services/service.js"
 import repository from "../repositories/movie.respository.js"
 
-async function getAll(req: Request, res: Response){
-    const {gender, plataform} = req.query
+async function getAll(req: Request, res: Response): Promise<void>{
+
+    const gender = String(req.query.gender)
+    const plataform = String(req.query.plataform)
     
     try {
         const movies = await services.getAll(gender, plataform)
