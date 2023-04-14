@@ -36,10 +36,6 @@ async function postMovie(data: insertMovie): Promise<void> {
   await prisma.movies.create({
     data
   })
-
-  // await db.query(`
-  //       INSERT INTO movies (name, plataform, gender, watched, note, resume) VALUES ($1, $2, $3, $4, $5, $6);
-  //   `, [name, plataform, gender, watched, note, resume])
 }
 
 async function attMovie(movie: updateMovie, id: number): Promise<void> {
@@ -55,20 +51,14 @@ async function attMovie(movie: updateMovie, id: number): Promise<void> {
       resume
     }
   })
-
-  // await db.query(`
-  //       UPDATE movies SET watched = $1, note = $2, resume = $3 WHERE id = $4;
-  //   `,
-  //   [watched, note, resume, id]
-  // )
 }
 
 async function deleteMovie(id: number): Promise<void> {
-  // await db.query(`
-  //       DELETE FROM movies WHERE id = $1;
-  //   `,
-  //   [id]
-  // )
+  await prisma.movies.delete({
+    where: {
+      id
+    }
+  })
 }
 
 export default {
