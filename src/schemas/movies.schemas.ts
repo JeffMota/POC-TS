@@ -1,16 +1,16 @@
 import joi from "joi"
 
 export const movieSchema = joi.object({
-    name: joi.string().required(),
-    plataform: joi.string().required(),
-    gender: joi.string().required(),
-    watched: joi.boolean(),
-    note: joi.number(),
-    resume: joi.string()
+  name: joi.string().required(),
+  plataform: joi.string().required(),
+  genders: joi.array().required(),
+  watched: joi.boolean(),
+  note: joi.number(),
+  resume: joi.string()
 })
 
 export const movieUpdateSchema = joi.object({
-    watched: joi.boolean().required(),
-    note: joi.number(),
-    resume: joi.string()
+  watched: joi.boolean().required(),
+  note: joi.number(),
+  resume: joi.string()
 })

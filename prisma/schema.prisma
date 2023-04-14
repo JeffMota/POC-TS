@@ -8,11 +8,26 @@ datasource db {
 }
 
 model movies {
-  id        Int      @id @default(autoincrement())
+  id        Int               @id @default(autoincrement())
   name      String
   plataform String
-  gender    String
-  watched   Boolean  @default(false)
-  note      Decimal? @db.Decimal
+  watched   Boolean           @default(false)
+  note      Decimal?          @db.Decimal
   resume    String?
+  genders   GendersOnMovies[]
+}
+
+model genders {
+  id     Int               @id @default(autoincrement())
+  name   String
+  movies GendersOnMovies[]
+}
+
+model GendersOnMovies {
+  movieId  Int
+  genderId Int
+  gender   genders @relation(fields: [genderId], references: [id])
+  movie    movies  @relation(fields: [movieId], references: [id])
+
+  @@id([movieId, genderId])
 }

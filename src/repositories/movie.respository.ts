@@ -5,13 +5,33 @@ import prisma from "../config/database.js";
 import { insertMovie, updateMovie } from "../protocols/movies.protocols.js";
 
 async function getAll(): Promise<movies[]> {
-  return await prisma.movies.findMany();
+  return await prisma.movies.findMany({
+    include: {
+      genders: {
+        select: {
+          gender: {
+            select: {
+              id: true,
+              name: true
+            }
+          }
+        }
+      }
+    }
+  })
 }
 
 async function findByGender(gender: string) {
-  return prisma.movies.findMany({
+  return prisma.genders.findMany({
     where: {
-      gender
+      name: gender
+    },
+    include: {
+      movies: {
+        select: {
+          movie: true
+        }
+      }
     }
   })
 }
@@ -32,11 +52,29 @@ async function findById(id: number) {
   })
 }
 
-async function postMovie(data: insertMovie): Promise<void> {
-  await prisma.movies.create({
-    data
+async function postMovie(movie: insertMovie): Promise<movies> {
+
+  const { name, plataform, watched, note, resume } = movie
+  return await prisma.movies.create({
+    data: {
+      name,
+      plataform,
+      watched,
+      note,
+      resume,
+    }
   })
 }
+
+async function addGenders(movieId: number, genderId: number) {
+  await prisma.gendersOnMovies.create({
+    data: {
+      movieId,
+      genderId
+    }
+  })
+}
+
 
 async function attMovie(movie: updateMovie, id: number): Promise<void> {
   const { watched, note, resume } = movie
@@ -59,6 +97,12 @@ async function deleteMovie(id: number): Promise<void> {
       id
     }
   })
+
+  await prisma.gendersOnMovies.deleteMany({
+    where: {
+      movieId: id
+    }
+  })
 }
 
 export default {
@@ -68,5 +112,6 @@ export default {
   findByGender,
   findByPlataform,
   attMovie,
-  deleteMovie
+  deleteMovie,
+  addGenders
 }

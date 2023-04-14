@@ -21,7 +21,13 @@ async function findById(id: number) {
 }
 
 async function postMovie(movie: insertMovie): Promise<void> {
-  await repository.postMovie(movie)
+  const movieInfo = await repository.postMovie(movie)
+
+  const genders = movie.genders
+  for (let i of genders) {
+    await repository.addGenders(movieInfo.id, i)
+
+  }
 }
 
 async function attMovie(movie: updateMovie, id: number): Promise<void> {

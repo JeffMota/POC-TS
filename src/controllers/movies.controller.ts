@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { insertMovie, updateMovie } from "../protocols/movies.protocols.js";
-import services from "../services/service.js"
+import services from "../services/movies.services.js"
 import repository from "../repositories/movie.respository.js"
 
 async function getAll(req: Request, res: Response): Promise<void> {
