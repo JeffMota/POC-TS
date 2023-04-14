@@ -24,6 +24,14 @@ async function findByPlataform(plataform: string) {
   })
 }
 
+async function findById(id: number) {
+  return prisma.movies.findMany({
+    where: {
+      id
+    }
+  })
+}
+
 async function postMovie(data: insertMovie): Promise<void> {
   await prisma.movies.create({
     data
@@ -36,6 +44,17 @@ async function postMovie(data: insertMovie): Promise<void> {
 
 async function attMovie(movie: updateMovie, id: number): Promise<void> {
   const { watched, note, resume } = movie
+
+  await prisma.movies.update({
+    where: {
+      id
+    },
+    data: {
+      watched,
+      note,
+      resume
+    }
+  })
 
   // await db.query(`
   //       UPDATE movies SET watched = $1, note = $2, resume = $3 WHERE id = $4;
@@ -55,6 +74,7 @@ async function deleteMovie(id: number): Promise<void> {
 export default {
   getAll,
   postMovie,
+  findById,
   findByGender,
   findByPlataform,
   attMovie,

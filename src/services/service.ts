@@ -16,6 +16,10 @@ async function getAll(gender: string, plataform: string) {
   return movies
 }
 
+async function findById(id: number) {
+  return await repository.findById(id)
+}
+
 async function postMovie(movie: insertMovie): Promise<void> {
   await repository.postMovie(movie)
 }
@@ -32,5 +36,6 @@ export default {
   getAll,
   postMovie,
   attMovie,
+  findById,
   deleteMovie
 }
