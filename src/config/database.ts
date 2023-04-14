@@ -1,9 +1,5 @@
-import pg from "pg";
+import { PrismaClient } from "@prisma/client";
 
-const {Pool} = pg
+const prisma = new PrismaClient()
 
-const configDatabase = {
-    connectionString: "postgres://postgres:248569731@localhost:5432/poc"
-}
-
-export const db = new Pool(configDatabase)
+export default prisma;
