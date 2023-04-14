@@ -24,8 +24,10 @@ async function findByPlataform(plataform: string) {
   })
 }
 
-async function postMovie(movie: insertMovie): Promise<void> {
-  const { name, plataform, gender, watched, note, resume } = movie
+async function postMovie(data: insertMovie): Promise<void> {
+  await prisma.movies.create({
+    data
+  })
 
   // await db.query(`
   //       INSERT INTO movies (name, plataform, gender, watched, note, resume) VALUES ($1, $2, $3, $4, $5, $6);
