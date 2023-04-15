@@ -1,26 +1,34 @@
 import prisma from "../src/config/database.js";
 
 async function main() {
+  await prisma.plataforms.createMany({
+    data: [
+      { name: "Netflix" },
+      { name: "Prime Video" },
+      { name: "HBOMAX" },
+    ]
+  })
+
   await prisma.movies.createMany({
     data: [
       {
         name: "A culpa é das estrelas",
-        plataform: "Prime video",
+        plataformId: 2,
         watched: false,
       },
       {
         name: "Orgulho e preconceito",
-        plataform: "Netflix",
+        plataformId: 1,
         watched: false,
       },
       {
         name: "A proposta",
-        plataform: "Prime video",
+        plataformId: 2,
         watched: false,
       },
       {
         name: "Jane Eyre",
-        plataform: "Netflix",
+        plataformId: 3,
         watched: false,
       },
     ]

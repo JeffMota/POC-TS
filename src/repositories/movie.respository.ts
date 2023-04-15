@@ -4,9 +4,15 @@ import { movies } from "@prisma/client";
 import prisma from "../config/database.js";
 import { insertMovie, updateMovie } from "../protocols/movies.protocols.js";
 
-async function getAll(): Promise<movies[]> {
+async function getAll() {
   return await prisma.movies.findMany({
-    include: {
+    select: {
+      id: true,
+      name: true,
+      watched: true,
+      note: true,
+      resume: true,
+      plataform: true,
       genders: {
         select: {
           gender: {
@@ -29,7 +35,16 @@ async function findByGender(gender: string) {
     include: {
       movies: {
         select: {
-          movie: true
+          movie: {
+            select: {
+              id: true,
+              name: true,
+              watched: true,
+              note: true,
+              resume: true,
+              plataform: true,
+            }
+          }
         }
       }
     }
@@ -39,7 +54,26 @@ async function findByGender(gender: string) {
 async function findByPlataform(plataform: string) {
   return prisma.movies.findMany({
     where: {
-      plataform
+      plataform: {
+        name: plataform
+      }
+    },
+    select: {
+      id: true,
+      name: true,
+      watched: true,
+      note: true,
+      resume: true,
+      genders: {
+        select: {
+          gender: {
+            select: {
+              id: true,
+              name: true
+            }
+          }
+        }
+      }
     }
   })
 }
@@ -54,11 +88,11 @@ async function findById(id: number) {
 
 async function postMovie(movie: insertMovie): Promise<movies> {
 
-  const { name, plataform, watched, note, resume } = movie
+  const { name, plataformId, watched, note, resume } = movie
   return await prisma.movies.create({
     data: {
       name,
-      plataform,
+      plataformId,
       watched,
       note,
       resume,

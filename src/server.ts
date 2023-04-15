@@ -1,5 +1,5 @@
-import express, {json} from "express"
-import router from "./routes/routes.js"
+import express, { json } from "express"
+import router from "./routes/index.js"
 
 const server = express()
 server.use(json())

@@ -10,7 +10,25 @@ async function createGender(data) {
   })
 }
 
+async function getGenderById(id: number) {
+  return await prisma.genders.findFirst({
+    where: {
+      id
+    }
+  })
+}
+
+async function deleteGender(id: number) {
+  await prisma.genders.delete({
+    where: {
+      id
+    }
+  })
+}
+
 export default {
   getAllGenders,
-  createGender
+  createGender,
+  getGenderById,
+  deleteGender
 }

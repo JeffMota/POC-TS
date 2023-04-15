@@ -2,7 +2,7 @@ import joi from "joi"
 
 export const movieSchema = joi.object({
   name: joi.string().required(),
-  plataform: joi.string().required(),
+  plataformId: joi.number().required(),
   genders: joi.array().required(),
   watched: joi.boolean(),
   note: joi.number(),
