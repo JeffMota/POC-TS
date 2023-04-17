@@ -1,10 +1,11 @@
-import prisma from "../config/database.js";
+import { insertGender } from "@/protocols/movies.protocols";
+import { prisma } from "../config/database";
 
 async function getAllGenders() {
   return await prisma.genders.findMany();
 }
 
-async function createGender(data) {
+async function createGender(data: insertGender) {
   await prisma.genders.create({
     data
   })

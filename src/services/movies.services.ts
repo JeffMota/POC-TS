@@ -1,5 +1,5 @@
-import { insertMovie, updateMovie } from "../protocols/movies.protocols.js"
-import repository from "../repositories/movie.respository.js"
+import { insertMovie, updateMovie } from "../protocols/movies.protocols"
+import repository from "../repositories/movie.respository"
 
 async function getAll(gender: string, plataform: string) {
   if (gender !== 'undefined') {

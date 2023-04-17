@@ -1,7 +1,7 @@
 import { Router } from "express";
-import gendersController from "../controllers/genders.controller.js";
-import validateSchema from "../middlewares/validateSchemas.js";
-import { genderSchema } from "../schemas/gender.schemas.js";
+import gendersController from "../controllers/genders.controller";
+import validateSchema from "../middlewares/validateSchemas";
+import { genderSchema } from "../schemas/gender.schemas";
 
 const gendersRouter = Router()
 

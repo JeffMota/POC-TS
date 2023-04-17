@@ -2,11 +2,15 @@
 
 - Instale as depêndencias 'npm install'
 
-- Crie um banco de dados com o nome 'poc'
+- Crie um banco de dados com o nome 'poc' e outro com o nome 'poc_test' para realizar os testes
 
-- Execute as migrations 'npx prisma migrate dev'
+- Configure os arquivos .env.development e .env.test com seus respectivos dados corretamente
 
-- Popule o banco 'npm run prisma:seed'
+- Execute as migrations 'npm run dev:migration:generate' e 'npm run test:migration:generate'
+
+- Popule o banco 'npm run dev:seed', caso queira pode também popular o banco de testes 'npm run test:seed'
+
+- Para executar os testes use o comando 'npm run test'
 
 ## /POST
 

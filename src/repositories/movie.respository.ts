@@ -1,8 +1,8 @@
 // import { QueryResult } from "pg";
-// import { db } from "../config/database.js";
+// import { db } from "../config/database";
 import { movies } from "@prisma/client";
-import prisma from "../config/database.js";
-import { insertMovie, updateMovie } from "../protocols/movies.protocols.js";
+import { prisma } from "../config/database";
+import { insertMovie, updateMovie } from "../protocols/movies.protocols";
 
 async function getAll() {
   return await prisma.movies.findMany({

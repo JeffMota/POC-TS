@@ -1,7 +1,7 @@
 import { Router } from "express";
-import moviesRouter from "./movies.routes.js";
-import gendersRouter from "./genders.routes.js";
-import plataformsRouter from "./plataform.routes.js";
+import moviesRouter from "./movies.routes";
+import gendersRouter from "./genders.routes";
+import plataformsRouter from "./plataform.routes";
 
 const router = Router()
 

@@ -1,4 +1,6 @@
-import prisma from "../src/config/database.js";
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
 
 async function main() {
   await prisma.plataforms.createMany({

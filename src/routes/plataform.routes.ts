@@ -1,7 +1,7 @@
 import { Router } from "express";
-import validateSchema from "../middlewares/validateSchemas.js";
-import { plataformSchema } from "../schemas/plataform.schemas.js";
-import plataformController from "../controllers/plataform.controller.js";
+import validateSchema from "../middlewares/validateSchemas";
+import { plataformSchema } from "../schemas/plataform.schemas";
+import plataformController from "../controllers/plataform.controller";
 
 const plataformsRouter = Router()
 

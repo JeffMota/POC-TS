@@ -1,7 +1,7 @@
 import { genders } from "@prisma/client";
 import { Request, Response } from "express";
-import { insertGender } from "../protocols/movies.protocols.js";
-import gendersServices from "../services/genders.services.js";
+import { insertGender } from "../protocols/movies.protocols";
+import gendersServices from "../services/genders.services";
 
 async function getAllGenders(req: Request, res: Response) {
   try {

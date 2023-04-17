@@ -16,7 +16,7 @@ async function createPlat(req: Request, res: Response) {
 
   try {
     await plataformServices.createPlat(data)
-    res.sendStatus(200)
+    res.sendStatus(201)
   } catch (error) {
     res.status(500).send(error.message)
   }
@@ -24,8 +24,12 @@ async function createPlat(req: Request, res: Response) {
 
 async function deletePlat(req: Request, res: Response) {
   const id = Number(req.params.id)
+  if (!id) return res.sendStatus(400)
 
   try {
+    const plat = await plataformServices.getById(id)
+    if (!plat) return res.sendStatus(404)
+
     await plataformServices.deletePlat(id)
     res.sendStatus(202)
   } catch (error) {

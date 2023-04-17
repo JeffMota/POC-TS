@@ -1,5 +1,5 @@
-import { insertGender } from "../protocols/movies.protocols.js"
-import genderRepository from "../repositories/gender.repository.js"
+import { insertGender } from "../protocols/movies.protocols"
+import genderRepository from "../repositories/gender.repository"
 
 async function getAllGenders() {
   return await genderRepository.getAllGenders()
